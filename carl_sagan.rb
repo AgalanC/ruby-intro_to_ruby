@@ -53,9 +53,6 @@ ghosts = [
           { name: "Clyde", age: 6, loves: "yarn", net_worth: 0 }
         ]
 
-# ghosts.each - calling method "each" that iterates over each element in the "ghosts" array.
-# |ghost| - block variable that holds the current element (a hash representing a ghost) for each iteration.
-# ghost_info - temporary string variable used to concatenate the attributes of each ghost (name, age, loves, and net_worth) into a single string.
 ghosts.each do |ghost|
   ghost_info  = "#{ghost[:name]} is #{ghost[:age]} years old, "
   ghost_info += "loves #{ghost[:loves]} and "
@@ -95,25 +92,15 @@ response = Net::HTTP.get(uri) # Perform an HTTP GET request to fetch the data fr
 dog_breeds = JSON.parse(response) # Convert JSON data into Ruby data (hash)
 # pp dog_breeds # pp stands for pretty print.
 
-breeds = dog_breeds['message'] # Extract the breeds data from the parsed data, in other words, from the 'message' key in the parsed JSON
+breeds = dog_breeds['message']
 
 # Iterate over each breed and its associated sub-breeds in the breeds hash
 breeds.each do |breed, sub_breed|
-  # Check if the current breed has no sub-breeds (sub_breed)
-    # "sub_breed" is an array that contains the sub-breeds of the current breed being iterated over
-    # For a breed with no sub-breeds, "sub_breed" would be an empty array []
-    # The "empty?" method is called to check if an object is empty, in other words, meaning if it has NO elements; if it has a length of zero
-    # It returns "true" if the array has no elements, in other words, if its length is zero
-    # It returns "false" if the array contains one or more elements
   if sub_breed.empty?
-    # Print the breed name in uppercase if there are no sub-breeds (sub_breed), and is prefixed with an asterisk *
     puts "* #{breed.upcase}"
   else
-    # Print the breed name in uppercase if there are sub-breeds (sub_breed), and is prefixed with an asterisk *
     puts "* #{breed.upcase}"
-    # Iterate over each sub-breed of the current breed
     sub_breed.each do |sub_breeds|
-      # Print the sub-breed (sub_breeds) name capitalized, indented, and prefixed with an dash (-)
       puts "  - #{sub_breeds.capitalize}"
     end
   end
@@ -135,14 +122,10 @@ uri = URI(url)
 response = Net::HTTP.get(uri)
 trees = JSON.parse(response) # Convert JSON data into Ruby data (hash)
 
-ash_tree_count = 0 # Initializing the counter for ash trees
+ash_tree_count = 0
 
 # Iterate through the list of trees
 trees.each do |tree|
-  # Check if the "tree" hash contains the key "common_name"
-  # The && operator ensures that both the condition on its left and the condition on its right must be true for the overall condition to be true
-  # Convert key "common_name" to lowercase
-  # Check if the word "ash" is part of the key "common_name"
   if tree["common_name"] && tree["common_name"].downcase.include?("ash")
     # if tree["common_name"].downcase.include?("ash") ### ALTERNATIVE WAY WITHOUT THE && OPERATOR
     ash_tree_count += 1 #  # Increment the count of ash tree
